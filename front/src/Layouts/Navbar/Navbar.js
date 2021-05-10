@@ -35,10 +35,19 @@ function Navbar() {
         <div className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
             <div className="navbar-toggle">
-              <img src={`${slid_logo_text}`} alt="" height="70" />
-              <Link to="#" className="menu-bars">
-                <AiIcons.AiOutlineClose style={{color:'black'}}/>
-              </Link>
+              <div style={{marginLeft:"30px"}}>
+                <img
+                  src={`${slid_logo_text}`}
+                  alt=""
+                  height="70"
+                  style={{ background: "white" }}
+                />
+              </div>
+              <div>
+                <Link to="#" className={sidebar ? "menu-close" : "menu-bars"}>
+                  <AiIcons.AiOutlineClose style={{ color: "white" }} />
+                </Link>
+              </div>
             </div>
             {SidebarData.map((item, index) => (
               <div>
