@@ -1,0 +1,14 @@
+{
+  "name": "slid_clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next"
+  },
+  "author": "chicken",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^9.5.5"
+  }
+}
