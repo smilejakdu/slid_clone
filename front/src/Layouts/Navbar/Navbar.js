@@ -13,12 +13,12 @@ function Navbar() {
 
   const SidebarData = [
     {
-      title: "내문서함",
+      title: "내 문서함",
       path: "/my_reports",
       cName: "nav-text",
     },
     {
-      title: "삭제된문서",
+      title: "삭제된 문서",
       path: "/delete_reports",
       cName: "nav-text",
     },
@@ -48,6 +48,13 @@ function Navbar() {
                   <AiIcons.AiOutlineClose style={{ color: "white" }} />
                 </Link>
               </div>
+            </div>
+{/* 로그인이 된다면 ==> 비회원은 작두키우기 , 로그인이 되어있지 않습니다. => 이메일주소 */}
+            <div style={{color:"white"}}>
+              비회원
+            </div>
+            <div style={{color:"white"}}>
+              로그인이 되어있지 않습니다.
             </div>
             {SidebarData.map((item, index) => (
               <div>
