@@ -1,15 +1,16 @@
-# slid_clone
+# Introduction
 
+slid 사이트를 보며 클론한 프로젝트 입니다.
 
-## back
+구성 : 1명
 
-- python
-- Django
-- Mysql
+# Demo Swagger
 
+# DB modeling
 
-## front
+![modeling](https://github.com/smilejakdu/bear_and_peach/blob/main/back/server/public/images/modeling.png)
 
-- javascript
-- React
-- Redux , Redux Saga
+# Technologies
+
+- React , Redux , Redux Saga
+- Django , AWS , RDS , Docker , Swagger
