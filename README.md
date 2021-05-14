@@ -8,7 +8,7 @@ slid 사이트를 보며 클론한 프로젝트 입니다.
 
 # DB modeling
 
-![modeling](https://github.com/smilejakdu/bear_and_peach/blob/main/back/server/public/images/modeling.png)
+![modeling](https://github.com/smilejakdu/slid_clone/blob/main/back/public/modeling.png)
 
 # Technologies
 
