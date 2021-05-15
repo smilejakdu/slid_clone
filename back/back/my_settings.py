@@ -18,7 +18,7 @@ DATABASES = {
 SECRET_KEY = {
     'secret' :'!1x9$j8w*voo6v#+79rmow$+v=-w!diymd-63ooe_wjj_)4yw7',
 }
-ALGORITHM = 'HS256'
+algorithm = 'HS256'
 
 
 
