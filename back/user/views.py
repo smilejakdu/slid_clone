@@ -18,7 +18,7 @@ class SignUpView(View):
             regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
             if not (re.search(regex , data['email'])):
                 return JsonResponse({"message": "INVALID_EMAIL"}, status=400)
-            
+
             if User.objects.filter(email = data['email']).exists():
                 return JsonResponse({"message": "EMAIL_EXISTS"}, status=400)
 
@@ -37,10 +37,10 @@ class SignUpView(View):
 
         except ValueError:
             return JsonResponse({"message": "VALUE_ERROR"}, status=400)
-        
+
         except Exception as e:
             return JsonResponse({"message": e}, status=400)
- 
+
 class SignInView(View):
     def post(self, request):
         try:
@@ -48,8 +48,8 @@ class SignInView(View):
             user = User.objects.get(email=data['email'])
 
             if bcrypt.checkpw(data['password'].encode('UTF-8'), user.password.encode('UTF-8')):
-                key       = my_settings.SECRET.get('secret')
-                algorithm = my_settings.SECRET.get('algorithm')
+                key       = my_settings.SECRET_KEY.get('secret')
+                algorithm = my_settings.SECRET_KEY.get('algorithm')
                 token     = jwt.encode({'user' : user.id},key, algorithm = algorithm).decode('UTF-8')
 
                 return JsonResponse({"token"  : token,
