@@ -14,12 +14,12 @@ class ProductView(View):
         data = json.loads(request.body)
         try:
             Product.objects.create(
-                product_name = data["product_name"],
-                price        = data["price"],
-                description  = data["description"],
-                active       = data["active"]
+                name        = data["name"],
+                price       = data["price"],
+                description = data["description"],
+                active      = data["active"]
             )
-            return JsonResponse({"message": "SUCCESS!"}, status=201)
+            return JsonResponse({"message": "INSERT_SUCCESS!"}, status=201)
 
         except KeyError:
             return JsonResponse({"message": "KEY_ERROR"}, status=400)
@@ -30,10 +30,10 @@ class ProductView(View):
     def put(self , request):
         data = json.loads(request.body)
         try:
-            if not Product.objects.filter(id=data["product_idx"]).exists():
+            if not Product.objects.filter(name = data["name"]).exists():
                 return JsonResponse({"message", "DOESNOT_PRODUCT"}, status=400)
 
-            product_data = Product.objects.get(id = data["product_idx"])
+            product_data = Product.objects.get(name = data["name"])
 
             product_data.name        = data["name"]
             product_data.price       = data["price"]
@@ -41,7 +41,7 @@ class ProductView(View):
             product_data.active      = data["active"]
             product_data.save()
 
-            return JsonResponse({"message":"DELETE_SUCCESS"},status=200)
+            return JsonResponse({"message":"UPDATE_SUCCESS"},status=200)
 
         except Product.DoesNotExist:
             return JsonResponse({"message": "Product_DoesNotExist"}, status=404)
@@ -57,7 +57,7 @@ class ProductView(View):
             product = Product.objects.values()
 
         except Exception as e:
-            return JsonResponse({"message": list(product)}, status=400)
+            return JsonResponse({"GET_SUCCESS": list(product)}, status=400)
 
     def delete(self , request):
         data = json.loads(request.body)
