@@ -1,7 +1,7 @@
 from django.db import models
 from user.models import User
 
-class Folder(models.Model): 
+class Folder(models.Model):
     parent_idx  = models.CharField(max_length=100 , null=True)
     folder_name = models.CharField(max_length=100)
     depth_idx   = models.IntegerField(null=True)
@@ -12,4 +12,4 @@ class Folder(models.Model):
         return self.name
 
     class Meta():
-        db_table = 'folder'
+        db_table = 'folders'
