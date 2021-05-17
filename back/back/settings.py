@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'subscription',
     'product',
     'payment',
-    'trash_basket',
 ]
 
 

@@ -2,8 +2,8 @@
 import os
 import jwt
 import json
-import my_settings
 
+from back                   import my_settings
 from pathlib                import Path
 from django.http            import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist

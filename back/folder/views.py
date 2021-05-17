@@ -1,7 +1,6 @@
 import json
 import random
 import datetime
-import utils
 
 from django.db.models import Q
 from django.views     import View
@@ -10,12 +9,6 @@ from folder.models    import Folder
 from user.models      import User
 from user.utils       import login_check
 
-#name        = models.CharField(max_length=100)
-#depth_idx   = models.IntegerField(null=True)
-#trash_bool  = models.BooleanField(default=False)
-#folder_path = models.ForeignKey('self' , on_delete=models.CASCADE , null=True)
-#user        = models.ForeignKey(User , on_delete=models.CASCADE)
-#created_at  = models.DateTimeField(auto_now_add=True)
 
 
 class FolderView(View):
@@ -24,22 +17,70 @@ class FolderView(View):
         data = json.loads(request.body)
 
         try:
-           Folder(
-            name           = data['name'] if data['name'] else 'Untitled folder',
-            depth_idx      = 0 if data['depth_idx'] == 0 else data['depth_idx'],
-            folder_path_id = data['depth_idx'] - 1,
-            user_id        = User.objects.get(id = request.user.id)
-           ).save()
-           return
+            Folder(
+                name          = data['name'] if data['name'] else 'Untitled folder',
+                depth_idx     = 0 if data['depth_idx'] == 0 else data['depth_idx'],
+                trash_basket  = False,
+#                parent_folder = ,
+                user_id       = User.objects.get(id = request.user.id)
+            ).save()
+
+            return JsonResponse({"message": "INSERT_FOLDER"},status=201)
         except KeyError:
             return JsonResponse({"message": "INVALID_KEY"},status=400)
 
         except Exception as e :
             return JsonResponse({"message": e},status=400)
+
+    @login_check
     def put(self, request):
-        return
-    def delete(self , request):
-        return
+        data = json.loads(request.body)
+
+        try:
+
+            folder = Folder.objects.get(id        = data['id'],
+                                        user_id   = request.user.id,
+                                        depth_idx = data['depth_idx'])
+
+            if data['name']: # 이름변경
+                folder.name = data['name']
+                folder.save()
+                return JsonResponse({"message":"UPDATE_SUCCESS"} ,status=200)
+
+            elif data['trash_basket']: # 삭제 바구니로 이동
+                folder.trash_basket = True
+                folder.save()
+                return JsonResponse({"message":"TRASH_BASKET_SUCCESS"} ,status=200)
+
+            elif data['parent_folder'] and data['depth_idx']: # 폴더이동
+
+                return JsonResponse({"message":"TRASH_BASKET_SUCCESS"} ,status=200)
+        except KeyError :
+            return JsonResponse({"message":"KEY_ERROR"} ,status=400)
+
+        except Exception as e :
+            return JsonResponse({"message":e} ,status=400)
+
+    @login_check
+    def delete(self , request): # 영구 삭제
+        try:
+
+            folder = Folder.objects.get(id        = data['id'],
+                                        user_id   = request.user.id ,
+                                        depth_idx = data['depth_idx'])
+            folder.delete()
+            return JsonResponse({"message":"DELETE_SUCCESS"} ,status=200)
+
+        except KeyError :
+            return JsonResponse({"message":"KEY_ERROR"} ,status=400)
+
+        except Folder.DoesNotExist:
+            return JsonResponse({"message":"DOES_NOT_FOLDER"} ,status=400)
+
+        except Exception as e :
+            return JsonResponse({"message":e} ,status=400)
+
+    @login_check
     def get(self ,request):
         # 기본값 id 순으로 출력 
         # 생성일순 으로 출력
