@@ -45,12 +45,12 @@ class UserTest(TestCase):
 
     def test_ProductView_put_success(self):
         client = Client()
-        product   = {
-            'name'        : 'Basic_string',
-            'price'       : 801,
-            'description' : "description_test_string",
-            'active'      : True
-        }
+        Product.objects.create(
+            name        = 'Basic_string',
+            price       = 801,
+            description = "description",
+            active      = True
+        )
 
         response = client.put('/product', json.dumps(product), content_type='application/json')
         self.assertEqual(response.status_code,200)

@@ -11,7 +11,7 @@ from django.core.exceptions import ImproperlyConfigured
 from .models                import User
 
 
-def signin_decorator(func):
+def login_check(func):
     def wrapper(self, request, *args, **kwargs):
         try:
             token     = request.headers.get('Authorization', None)

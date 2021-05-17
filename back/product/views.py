@@ -56,8 +56,10 @@ class ProductView(View):
         try:
             product = Product.objects.values()
 
+            return JsonResponse({"GET_SUCCESS": list(product)}, status=200)
+
         except Exception as e:
-            return JsonResponse({"GET_SUCCESS": list(product)}, status=400)
+            return JsonResponse({"message": e}, status=400)
 
     def delete(self , request):
         data = json.loads(request.body)

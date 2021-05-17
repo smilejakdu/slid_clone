@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from .       import my_settings
+from .       import my_settings , cors_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'subscription',
     'product',
     'payment',
+    'trash_basket',
 ]
 
 
@@ -108,27 +109,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = '/static/'
 
-SCORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+SCORS_ORIGIN_ALLOW_ALL = cors_settings.SCORS_ORIGIN_ALLOW_ALL
+CORS_ALLOW_CREDENTIALS = cors_settings.CORS_ALLOW_CREDENTIALS
 
-CORS_ALLOW_METHODS = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-)
-
-CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-)
+CORS_ALLOW_METHODS=cors_settings.CORS_ALLOW_METHODS
+CORS_ALLOW_HEADERS=cors_settings.CORS_ALLOW_HEADERS
 

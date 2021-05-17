@@ -6,6 +6,7 @@ Dockerfile
 ### Django ###
 .idea/
 .dump.sql
+cors_settings.py
 my_settings.py
 *.log
 *.pot
