@@ -100,6 +100,16 @@ class FolderView(View):
                   objects.
                   prefetch_related('folder_set').
                   filter(depth_idx=1))
+        # 생성일 순
+        folder = (Folder.
+                  objects.
+                  prefetch_related('folder_set').
+                  filter(depth_idx=1).order_by('created_at'))
+        # 이름 순
+        folder = (Folder.
+                  objects.
+                  prefetch_related('folder_set').
+                  filter(depth_idx=1).order_by('name'))
 
         # 생성일순 으로 출력
         # 이름순으로 출력
