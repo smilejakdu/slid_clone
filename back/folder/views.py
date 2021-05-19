@@ -15,12 +15,6 @@ class FolderView(View):
     @login_check
     def post(self, request):
         data = json.loads(request.body)
-        # front 에서 depth_idx 와 parent_folder_id 를 줘야한다는건데
-        # front 에서 알까 ?? 라는 생각이 들었다
-        # 우선 depth_idx default = 0 으로 되어있고 ,
-        # parent_folder_id 가 front 에서 주게 된다면 , 값을 넣고 
-        # parent_folder_id 가 front 에서 준다는것은 위치가 root node 가 아닐꺼라는 생각이 들었다.
-        # 없다면 0 을 넣었다.
 
         try:
             Folder(
