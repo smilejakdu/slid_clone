@@ -6,7 +6,7 @@ class User(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.email
 
     class Meta():
         db_table = 'users'
