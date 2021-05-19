@@ -14,5 +14,4 @@ First of all , this is the initial modeling.
 
 # Technologies
 
-- React , Redux , Redux Saga
 - Django , AWS , RDS , Docker , Swagger
