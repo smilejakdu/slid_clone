@@ -91,27 +91,38 @@ class FolderView(View):
         except Exception as e :
             return JsonResponse({"message":e} ,status=400)
 
+
     @login_check
     def get(self ,request):
-        print(request.user.id)
-        # 기본값 depth_idx 순으로 출력  ==> 첫번째 바로 보여주게 될때 
-        # 일반적인 검색이랑 같지않을까?? 생각을 함 
-        folder = (Folder.
-                  objects.
-                  prefetch_related('folder_set').
-                  filter(depth_idx=1))
-        # 생성일 순
-        folder = (Folder.
-                  objects.
-                  prefetch_related('folder_set').
-                  filter(depth_idx=1).order_by('created_at'))
-        # 이름 순
-        folder = (Folder.
-                  objects.
-                  prefetch_related('folder_set').
-                  filter(depth_idx=1).order_by('name'))
+        # depth_idx = 1 보여줌 
+        # 조건문을 걸어서 , 
+        order_filter     = request.GET.get("order",None)
+        depth_idx_filter = int(request.GET.get("depth_idx",None))
 
-        # 생성일순 으로 출력
-        # 이름순으로 출력
-        return
+        try:
+            if len(order_filter) > 1:
+                folder = (Folder.
+                          objects.
+                          prefetch_related('folder_set').
+                          filter(depth_idx = depth_idx_filter).order_by(f'{order_filter}'))
+                return JsonResponse({"data": list(folder)}, status = 200)
+
+            folder = (Folder.
+                      objects.
+                      prefetch_related('folder_set').
+                      filter(depth_idx = depth_idx_filter))
+
+            return JsonResponse({"data": list(folder)}, status=200)
+
+        except TypeError:
+            return JsonResponse({"message": "INVALID_TYPE"}, status=400)
+
+        except Exception as e:
+            return JsonResponse({"message" : e} , status=400)
+
+# ----------------------------------------------------------------
+        # 폴더 이동했을경우 
+# ----------------------------------------------------------------
+        # root parent 까지 보여줘야함
+# ----------------------------------------------------------------
 
